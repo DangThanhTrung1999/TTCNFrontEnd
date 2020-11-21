@@ -1,6 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
+import CartScreen from "./screens/CartScreen";
+import DetailScreen from "./screens/DetailScreen";
 import HomeScreen from "./screens/HomeScreen";
+import ProductCreateSreen from "./screens/ProductCreateSreen";
 
 function App() {
   return (
@@ -70,7 +73,10 @@ function App() {
           </div>
         </nav>
         <main className="main">
-          <Route path="/home" component={HomeScreen} />
+          <Route path="/" exact component={HomeScreen} />
+          <Route path='/cart' component={CartScreen}/>
+          <Route path='/detail' component={DetailScreen}/>
+          <Route path='/create' component={ProductCreateSreen}/>
         </main>
       </div>
     </BrowserRouter>
