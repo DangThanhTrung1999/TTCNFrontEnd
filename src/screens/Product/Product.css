@@ -1,0 +1,28 @@
+.btn__product {
+    position: static;
+    width: 100%;
+    height: auto;
+    background-color: #ebe5e5c2;
+    padding: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    /* font-size: 18px; */
+    border: 1px solid black;
+}
+
+.btn__product:hover {
+    background-color: black;
+    color: #ebe5e5c2;
+}
+
+.product__img {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.product__center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 3rem;
+}

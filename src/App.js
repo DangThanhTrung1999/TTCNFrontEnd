@@ -1,82 +1,37 @@
+// import { Slider } from "@material-ui/core";
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import CartScreen from "./screens/CartScreen";
 import DetailScreen from "./screens/DetailScreen";
+import Header from "./screens/Header";
+import Slider from "./screens/Slider/Slider";
 import HomeScreen from "./screens/HomeScreen";
+import ListProductScreen from "./screens/ListProductScreen";
 import ProductCreateSreen from "./screens/ProductCreateSreen";
+import TopBar from "./screens/TopBar/TopBar";
+import Product from "./screens/Product/Product";
+import Faculity from "./screens/Faculity/Faculity";
+import Footer from "./screens/Footer/Footer";
+import LoginScreen from "./screens/Login/LoginScreen";
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="container">
-        <nav class="navbar navbar-expand-sm navbar-light bg-light">
-          <a class="navbar-brand" href="#">
-            Navbar
-          </a>
-          <button
-            class="navbar-toggler d-lg-none"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapsibleNavId"
-            aria-controls="collapsibleNavId"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="collapsibleNavId">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">
-                  Home <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Link
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="dropdownId"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownId">
-                  <a class="dropdown-item" href="#">
-                    Action 1
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    Action 2
-                  </a>
-                </div>
-              </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-              <input
-                class="form-control mr-sm-2"
-                type="text"
-                placeholder="Search"
-              />
-              <button
-                class="btn btn-outline-success my-2 my-sm-0"
-                type="submit"
-              >
-                Search
-              </button>
-            </form>
-          </div>
-        </nav>
+      {/* <TopBar /> */}
+      {/* <Header />
+      <Slider />
+      <Product />
+      <Faculity />
+      <Footer /> */}
+      <div className="container-fluid">
         <main className="main">
+          
           <Route path="/" exact component={HomeScreen} />
-          <Route path='/cart' component={CartScreen}/>
-          <Route path='/detail' component={DetailScreen}/>
-          <Route path='/create' component={ProductCreateSreen}/>
+          <Route path='/login' component={LoginScreen}/>
+          <Route path="/cart" component={CartScreen} />
+          <Route path="/detail" component={DetailScreen} />
+          <Route path="/create" component={ProductCreateSreen} />
+          <Route path="/list" component={ListProductScreen} />
         </main>
       </div>
     </BrowserRouter>

@@ -5,7 +5,7 @@ import "../css/app.css";
 
 import { createProduct } from "../actions/product.action";
 
-function ProductCreateSreen(props) {
+function UpdateProductScreen(props) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
@@ -43,6 +43,7 @@ function ProductCreateSreen(props) {
         setUploading(false);
       });
   };
+  const { handleClickBack, handleClickEdit, product } = props;
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({ name, price, image, brand, category, description });
@@ -51,8 +52,8 @@ function ProductCreateSreen(props) {
     );
   };
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <h3>Create Product</h3>
+    <form className="list-product-form" onSubmit={handleSubmit}>
+      <h3>Update Product</h3>
       {loadingSave && <div>Loading...</div>}
       {errorSave && <div>{errorSave}</div>}
       <div className="form-group">
@@ -61,6 +62,7 @@ function ProductCreateSreen(props) {
           type="text"
           className="form-control"
           placeholder="Enter name product"
+          value={product.name}
           onChange={(e) => setName(e.target.value)}
           id="name"
         />
@@ -71,6 +73,7 @@ function ProductCreateSreen(props) {
           type="int"
           className="form-control"
           placeholder="Enter price"
+          value={product.price}
           onChange={(e) => setPrice(e.target.value)}
           id="price"
         />
@@ -81,6 +84,7 @@ function ProductCreateSreen(props) {
           type="text"
           hidden
           name="image"
+          value={product.image}
           onChange={(e) => setImage(e.target.value)}
         />
         <input
@@ -91,6 +95,10 @@ function ProductCreateSreen(props) {
           onChange={uploadFile}
         />
         {uploading && <div>Uploading...</div>}
+        <img
+          style={{ width: "100%", paddingTop: "2rem", paddingBottom: "2rem" }}
+          src={`api/uploads/${product.image}`}
+        />
       </div>
       <div className="form-group">
         <label htmlFor="brand">Brand:</label>
@@ -98,6 +106,7 @@ function ProductCreateSreen(props) {
           type="int"
           className="form-control"
           placeholder="Enter brand"
+          value={product.brand}
           onChange={(e) => setBrand(e.target.value)}
           id="brand"
         />
@@ -108,6 +117,7 @@ function ProductCreateSreen(props) {
           type="int"
           className="form-control"
           placeholder="Enter category"
+          value={product.category}
           onChange={(e) => setCategory(e.target.value)}
           id="category"
         />
@@ -118,20 +128,23 @@ function ProductCreateSreen(props) {
           type="int"
           className="form-control"
           placeholder="Enter description"
+          value={product.description}
           onChange={(e) => setDescription(e.target.value)}
           id="description"
         />
       </div>
       <div className="form-group">
         <button type="submit" className="btn btn-primary">
-          Create
+          Update
         </button>
       </div>
       <div className="form-group">
-        <button className="btn btn-warning">Back</button>
+        <button className="btn btn-warning" onClick={() => handleClickBack()}>
+          Back to list
+        </button>
       </div>
     </form>
   );
 }
 
-export default ProductCreateSreen;
+export default UpdateProductScreen;
