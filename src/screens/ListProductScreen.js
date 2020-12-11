@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { animations } from "react-animation";
 
 import { productList } from "../actions/product.action";
-import "../css/app.css";
 import UpdateProductScreen from "./UpdateProductScreen";
 function ListProductScreen(props) {
   const listProduct = useSelector((state) => state.productList);
   const [showForm, setShowForm] = useState(false);
-  const { loading, products, error } = listProduct;
   const [productEdit, setProductEdit] = useState({});
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,7 +26,7 @@ function ListProductScreen(props) {
       <div
         className="list-product-edit"
         style={
-          showForm ? { display: "block", animation: animations.fadeInUp } : {}
+          showForm ? { display: "block"} : {}
         }
       >
         <UpdateProductScreen

@@ -6,7 +6,6 @@
     padding: 1rem;
     text-transform: uppercase;
     font-weight: bold;
-    /* font-size: 18px; */
     border: 1px solid black;
 }
 
@@ -16,8 +15,11 @@
 }
 
 .product__img {
-    width: 80%;
+    width: fit-content;
     margin: 0 auto;
+    height: 200px;
+    position: relative;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s ;
 }
 
 .product__center {
@@ -25,4 +27,7 @@
     flex-direction: column;
     justify-content: center;
     padding-bottom: 3rem;
+}
+.product__img:hover{
+   transform: translateY(-10px);
 }

@@ -39,19 +39,19 @@ function Footer(props) {
             <h3 className="footer__header">contact us</h3>
             <ul className="footer__list">
               <li className="footer__item">
-                <i class="fa fa-map-marker footer__i" aria-hidden="true"></i>
+                <i className="fa fa-map-marker footer__i" aria-hidden="true"></i>
                 <span>Da Nang University, 54 Nguyen Luong Bang Street</span>
               </li>
               <li className="footer__item">
-                <i class="fa fa-envelope-o footer__i" aria-hidden="true"></i>
+                <i className="fa fa-envelope-o footer__i" aria-hidden="true"></i>
                 <span>dn@gmail.com</span>
               </li>
               <li className="footer__item ">
-                <i class="fa fa-phone footer__i" aria-hidden="true"></i>
+                <i className="fa fa-phone footer__i" aria-hidden="true"></i>
                 <span>123456789</span>
               </li>
               <li className="footer__item">
-                <i class="fa fa-telegram footer__i" aria-hidden="true"></i>
+                <i className="fa fa-telegram footer__i" aria-hidden="true"></i>
                 <span>Da Nang, Viet Nam</span>
               </li>
             </ul>

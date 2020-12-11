@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import "../css/app.css";
+import "./ProductCreateScreen.css";
 
 import { createProduct } from "../actions/product.action";
 
@@ -52,14 +52,14 @@ function ProductCreateSreen(props) {
   };
   return (
     <form className="form" onSubmit={handleSubmit}>
-      <h3>Create Product</h3>
+      <h1>Create Product</h1>
       {loadingSave && <div>Loading...</div>}
-      {errorSave && <div>{errorSave}</div>}
+      {errorSave && <div>Have Error when create product.Please try again.</div>}
       <div className="form-group">
         <label htmlFor="name">Name:</label>
         <input
           type="text"
-          className="form-control"
+          className="form-control form-create"
           placeholder="Enter name product"
           onChange={(e) => setName(e.target.value)}
           id="name"
@@ -69,7 +69,7 @@ function ProductCreateSreen(props) {
         <label htmlFor="price">Price:</label>
         <input
           type="int"
-          className="form-control"
+          className="form-control form-create"
           placeholder="Enter price"
           onChange={(e) => setPrice(e.target.value)}
           id="price"
@@ -85,7 +85,8 @@ function ProductCreateSreen(props) {
         />
         <input
           type="file"
-          className="form-control"
+          style={{paddingBottom:'30px'}}
+          className="form-control form-create"
           placeholder="No file choose"
           id="image"
           onChange={uploadFile}
@@ -96,7 +97,7 @@ function ProductCreateSreen(props) {
         <label htmlFor="brand">Brand:</label>
         <input
           type="int"
-          className="form-control"
+          className="form-control form-create"
           placeholder="Enter brand"
           onChange={(e) => setBrand(e.target.value)}
           id="brand"
@@ -106,7 +107,7 @@ function ProductCreateSreen(props) {
         <label htmlFor="category">Category:</label>
         <input
           type="int"
-          className="form-control"
+          className="form-control form-create"
           placeholder="Enter category"
           onChange={(e) => setCategory(e.target.value)}
           id="category"
@@ -116,19 +117,19 @@ function ProductCreateSreen(props) {
         <label htmlFor="description">Description:</label>
         <input
           type="int"
-          className="form-control"
+          className="form-control form-create"
           placeholder="Enter description"
           onChange={(e) => setDescription(e.target.value)}
           id="description"
         />
       </div>
       <div className="form-group">
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary btn-create">
           Create
         </button>
       </div>
       <div className="form-group">
-        <button className="btn btn-warning">Back</button>
+        <button className="btn btn-warning btn-create">Back</button>
       </div>
     </form>
   );
