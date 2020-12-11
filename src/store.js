@@ -6,7 +6,7 @@ import { userSigninReducer } from "./reducers/user.reducer";
 const rootReducer = combineReducers({
   productSave,
   productList,
-  userSigninReducer,
+  userSignin:userSigninReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

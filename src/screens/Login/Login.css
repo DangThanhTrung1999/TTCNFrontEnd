@@ -12,7 +12,7 @@ button {
 
 .login {
     background: #007bff;
-    background: linear-gradient(to right, #0062E6, #33AEFF);
+    background: linear-gradient(to right, #a6bfe0, #33AEFF);
     height: 100vh;
 }
 
@@ -24,8 +24,8 @@ button {
 
 .card-signin .card-title {
     margin-bottom: 2rem;
-    font-weight: 300;
-    font-size: 1.5rem;
+    font-weight: 400;
+    font-size: 2.5rem;
 }
 
 .card-signin .card-body {
@@ -33,7 +33,8 @@ button {
 }
 
 .form-signin {
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .form-signin .btn {

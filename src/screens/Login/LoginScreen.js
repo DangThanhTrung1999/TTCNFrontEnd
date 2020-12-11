@@ -7,7 +7,7 @@ function LoginScreen(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const userSignin = useSelector((state) => state.userSignin);
-  // const { loading, userInfo, error } = userSignin;
+  const { loading, userInfo, error } = userSignin;
 
   const dispatch = useDispatch();
 
@@ -17,13 +17,13 @@ function LoginScreen(props) {
   };
   return (
     <div className="container-fluid login">
-      <div className="row">
+      <div className="row login-vertical">
         <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
-          <div className="card card-signin my-5">
+          <div className="card card-signin my-5" style={{width:"80%"}}>
             <div className="card-body">
-              <h5 className="card-title text-center">Sign In</h5>
-              {/* {loading && <div>Loading...</div>}
-              {error && <div>{error}</div>} */}
+              <h3 className="card-title text-center">Sign In</h3>
+              {loading && <div>Loading...</div>}
+              {error && <div>{error}</div>}
               <form className="form-signin" onSubmit={handleSubmitForm}>
                 <div className="form-label-group">
                   <input
