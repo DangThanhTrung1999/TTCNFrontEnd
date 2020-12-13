@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import "./ProductUpdateScreen.css";
+import { detailsProduct, updateProduct } from "../../actions/product.action";
 
-import { createProduct } from "../actions/product.action";
+function ProductUpdateScreen(props) {
+  const productDetail = useSelector((state) => state.productDetails);
+  const { product, loading, error } = productDetail;
+  let pr = { ...product };
+  let { _id } = product ? product : "";
+  let id = props.location.search.split("=")[1];
+  useEffect(() => {
+    dispatch(detailsProduct(id));
+  }, [id]);
 
-function UpdateProductScreen(props) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
@@ -12,16 +21,8 @@ function UpdateProductScreen(props) {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [uploading, setUploading] = useState(false);
-
   const dispatch = useDispatch();
-  const productSave = useSelector((state) => state.productSave);
-
-  const {
-    loading: loadingSave,
-    success: successSave,
-    error: errorSave,
-  } = productSave;
-
+  console.log(product);
   const uploadFile = (e) => {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
@@ -42,26 +43,32 @@ function UpdateProductScreen(props) {
         setUploading(false);
       });
   };
-  const { handleClickBack, handleClickEdit, product } = props;
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ name, price, image, brand, category, description });
     dispatch(
-      createProduct({ name, price, image, brand, category, description })
+      updateProduct({ _id, name, price, image, brand, category, description })
     );
+    setTimeout(() => {
+      props.history.push("/list");
+    }, 1000);
   };
   return (
-    <form className="list-product-form" onSubmit={handleSubmit}>
-      <h3>Update Product</h3>
-      {loadingSave && <div>Loading...</div>}
-      {errorSave && <div>{errorSave}</div>}
+    <form className="form" onSubmit={handleSubmit}>
+      <h1>Update Product</h1>
+      {loading && <div>Loading...</div>}
+      {error && (
+        <p style={{ color: "red" }}>
+          Have error when loading to upload product.Please try again.
+        </p>
+      )}
+
       <div className="form-group">
         <label htmlFor="name">Name:</label>
         <input
+          Value={pr ? pr.name : ""}
           type="text"
-          className="form-control"
+          className="form-control form-create"
           placeholder="Enter name product"
-          value={product.name}
           onChange={(e) => setName(e.target.value)}
           id="name"
         />
@@ -70,9 +77,9 @@ function UpdateProductScreen(props) {
         <label htmlFor="price">Price:</label>
         <input
           type="int"
-          className="form-control"
+          Value={pr ? pr.price : ""}
+          className="form-control form-create"
           placeholder="Enter price"
-          value={product.price}
           onChange={(e) => setPrice(e.target.value)}
           id="price"
         />
@@ -83,12 +90,13 @@ function UpdateProductScreen(props) {
           type="text"
           hidden
           name="image"
-          value={product.image}
+          Value={pr ? pr.image : ""}
           onChange={(e) => setImage(e.target.value)}
         />
         <input
           type="file"
-          className="form-control"
+          style={{ paddingBottom: "30px" }}
+          className="form-control form-create"
           placeholder="No file choose"
           id="image"
           onChange={uploadFile}
@@ -96,16 +104,16 @@ function UpdateProductScreen(props) {
         {uploading && <div>Uploading...</div>}
         <img
           style={{ width: "100%", paddingTop: "2rem", paddingBottom: "2rem" }}
-          src={`api/uploads/${product.image}`}
+          src={`api/uploads/${pr ? pr.image : ""}`}
         />
       </div>
       <div className="form-group">
         <label htmlFor="brand">Brand:</label>
         <input
           type="int"
-          className="form-control"
+          className="form-control form-create"
           placeholder="Enter brand"
-          value={product.brand}
+          Value={pr ? pr.brand : ""}
           onChange={(e) => setBrand(e.target.value)}
           id="brand"
         />
@@ -114,9 +122,9 @@ function UpdateProductScreen(props) {
         <label htmlFor="category">Category:</label>
         <input
           type="int"
-          className="form-control"
+          className="form-control form-create"
           placeholder="Enter category"
-          value={product.category}
+          Value={pr ? pr.category : ""}
           onChange={(e) => setCategory(e.target.value)}
           id="category"
         />
@@ -125,25 +133,30 @@ function UpdateProductScreen(props) {
         <label htmlFor="description">Description:</label>
         <input
           type="int"
-          className="form-control"
+          className="form-control form-create"
           placeholder="Enter description"
-          value={product.description}
+          Value={pr ? pr.description : ""}
           onChange={(e) => setDescription(e.target.value)}
           id="description"
         />
       </div>
       <div className="form-group">
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary btn-create">
           Update
         </button>
       </div>
       <div className="form-group">
-        <button className="btn btn-warning" onClick={() => handleClickBack()}>
-          Back to list
+        <button
+          className="btn btn-warning btn-create"
+          onClick={() => {
+            props.history.push("/list");
+          }}
+        >
+          Back
         </button>
       </div>
     </form>
   );
 }
 
-export default UpdateProductScreen;
+export default ProductUpdateScreen;

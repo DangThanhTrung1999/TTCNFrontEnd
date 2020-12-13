@@ -1,44 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
-import { productList } from "../actions/product.action";
-import UpdateProductScreen from "./UpdateProductScreen";
+import { productList, deleteProduct } from "../../actions/product.action";
+import "./ListProductScreen.css";
 function ListProductScreen(props) {
   const listProduct = useSelector((state) => state.productList);
-  const [showForm, setShowForm] = useState(false);
-  const [productEdit, setProductEdit] = useState({});
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(productList());
   }, []);
   const handleEditProduct = (product) => {
-    setShowForm(true);
-    setProductEdit(product);
+    props.history.push(`/update?id=${product._id}`);
   };
-  const handleClickEdit = () => {
-    setShowForm(false);
+
+  const handleDeleteProduct = (product) => {
+    setTimeout(() => {
+      dispatch(deleteProduct(product._id));
+    }, 1000);
   };
-  const handleClickBack = () => {
-    setShowForm(false);
-  };
+  const productDelete = useSelector((state) => state.productDelete);
+
+  const {
+    loading: loadingDelete,
+    success: successDelete,
+    error: errorDelete,
+  } = productDelete;
+  useEffect(() => {
+    dispatch(productList());
+  }, [successDelete]);
+
   return (
     <div className="list-product">
-      <div
-        className="list-product-edit"
-        style={
-          showForm ? { display: "block"} : {}
-        }
-      >
-        <UpdateProductScreen
-          product={productEdit}
-          handleClickEdit={handleClickEdit}
-          handleClickBack={handleClickBack}
-        />
-      </div>
-      <h3 style={{ textAlign: "center", margin: "20px" }}>
-        This is list product
-      </h3>
-      <table className="table">
+      <h1 style={{ textAlign: "center", margin: "20px" }}>LIST PRODUCT</h1>
+      <table className="table table-bordered">
         <thead>
           <tr>
             <th>Name</th>
@@ -64,13 +58,18 @@ function ListProductScreen(props) {
               </td>
               <td>
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-primary list-product-btn"
                   style={{ marginRight: "10px" }}
                   onClick={() => handleEditProduct(item)}
                 >
                   Edit
                 </button>
-                <button className="btn btn-danger">Delete</button>
+                <button
+                  className="btn btn-danger list-product-btn"
+                  onClick={() => handleDeleteProduct(item)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

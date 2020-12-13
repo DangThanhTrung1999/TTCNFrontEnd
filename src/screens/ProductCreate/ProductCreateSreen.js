@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import "./ProductCreateScreen.css";
 
-import { createProduct } from "../actions/product.action";
+import { createProduct } from "../../actions/product.action";
 
 function ProductCreateSreen(props) {
   const [name, setName] = useState("");
@@ -45,16 +45,22 @@ function ProductCreateSreen(props) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ name, price, image, brand, category, description });
     dispatch(
       createProduct({ name, price, image, brand, category, description })
     );
+    setTimeout(() => {
+      props.history.push("/list");
+    }, 1000);
   };
   return (
     <form className="form" onSubmit={handleSubmit}>
       <h1>Create Product</h1>
       {loadingSave && <div>Loading...</div>}
-      {errorSave && <div>Have Error when create product.Please try again.</div>}
+      {errorSave && (
+        <p style={{ color: "red" }}>
+          Have error when create product.Please try again.
+        </p>
+      )}
       <div className="form-group">
         <label htmlFor="name">Name:</label>
         <input
@@ -85,7 +91,7 @@ function ProductCreateSreen(props) {
         />
         <input
           type="file"
-          style={{paddingBottom:'30px'}}
+          style={{ paddingBottom: "30px" }}
           className="form-control form-create"
           placeholder="No file choose"
           id="image"
@@ -129,7 +135,14 @@ function ProductCreateSreen(props) {
         </button>
       </div>
       <div className="form-group">
-        <button className="btn btn-warning btn-create">Back</button>
+        <button
+          className="btn btn-warning btn-create"
+          onClick={() => {
+            props.history.push("/");
+          }}
+        >
+          Back
+        </button>
       </div>
     </form>
   );

@@ -1,9 +1,16 @@
 import React from "react";
 import "./Header.css";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 function Header(props) {
   return (
-    <div style={{ width: "100%", position: "fixed", backgroundColor:'white',zIndex:'2'}}>
+    <div
+      style={{
+        width: "100%",
+        position: "fixed",
+        backgroundColor: "white",
+        zIndex: "2",
+      }}
+    >
       <div className="navigation">
         <div className="container">
           <nav className="nav">
@@ -20,9 +27,7 @@ function Header(props) {
             <div className="nav__menu">
               <div className="menu__top">
                 <span className="nav__category">PHONE</span>
-                <a href="#" className="close__toggle">
-               
-                </a>
+                <a href="#" className="close__toggle"></a>
               </div>
               <ul className="nav__list">
                 <li className="nav__item">
@@ -36,9 +41,13 @@ function Header(props) {
                   </Link>
                 </li>
                 <li className="nav__item">
-                  <a href="#news" className="nav__link scroll-link">
-                    Blog
-                  </a>
+                  <Link
+                    to={"/list"}
+                    className="nav__link scroll-link"
+                    style={{ width: "140px" }}
+                  >
+                    Manage Product
+                  </Link>
                 </li>
                 <li className="nav__item">
                   <a href="#contact" className="nav__link scroll-link">
