@@ -1,0 +1,14 @@
+.detail-left{
+    padding: 40px 0;
+    padding-left: 40px;
+}
+.detail{
+    padding: 40px 0;
+}
+.detail-title{
+    font-weight: bold;
+}
+.detail-img{
+    width: 80%;
+    
+}

@@ -15,14 +15,17 @@ function Product(props) {
       <div className="row">
         {listProduct.products.map((item) => (
           <div className="col-12 col-sm-3 product__center" key={item._id}>
-            <Link to={"/detail"}>
+            <Link to={`/detail?id=${item._id}`}>
               <img
                 src={`/api/uploads/${item.image}`}
                 alt="headphone"
                 className="product__img"
               />
             </Link>
-            <Link to={"/detail"} style={{ textDecoration: "none" }}>
+            <Link
+              to={`/detail?id=${item._id}`}
+              style={{ textDecoration: "none" }}
+            >
               <p>{item.name}</p>
             </Link>
             <p>{item.price}</p>
