@@ -11,6 +11,7 @@ import {
 import {
   userSigninReducer,
   userRegisterReducer,
+  userUpdateReducer,
 } from "./reducers/user.reducer";
 const userInfo = Cookie.getJSON("user") || null;
 const cartItems = Cookie.getJSON("cart") || [];
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   userRegister: userRegisterReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
+  useUpdate: userUpdateReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

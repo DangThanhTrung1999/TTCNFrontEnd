@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { productList } from "../../actions/product.action";
+import Rating from "../../common/Rating/Rating";
 import "./Product.css";
 
 function Product(props) {
@@ -27,6 +28,7 @@ function Product(props) {
               style={{ textDecoration: "none" }}
             >
               <p>{item.name}</p>
+              <Rating value={item.rating} />
             </Link>
             <p>{item.price}</p>
             <button className="btn btn__product">Add to cart</button>

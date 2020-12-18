@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./Profile.css";
+import { logout, update } from "../../actions/user.action";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Profile(props) {
   const [name, setName] = useState("");
@@ -9,8 +12,8 @@ function Profile(props) {
   const dispatch = useDispatch();
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-  //   const userUpdate = useSelector(state => state.userUpdate);
-  //   const { loading, success, error } = userUpdate;
+  const userUpdate = useSelector((state) => state.userUpdate);
+  const { loading, success, error } = userUpdate || {};
   useEffect(() => {
     if (userInfo) {
       console.log(userInfo.name);
@@ -19,15 +22,28 @@ function Profile(props) {
       setPassword(userInfo.password);
     }
   }, [userInfo]);
-
+  const handleLogout = () => {
+    dispatch(logout());
+    props.history.push("/login");
+  };
+  const notify = () => toast.success("Udpate user success!");
+  const submitFormUpdate = (e) => {
+    e.preventDefault();
+    dispatch(update({ userId: userInfo._id, email, name, password }));
+    setPassword("");
+    setTimeout(() => {
+      notify();
+    }, 1000);
+  };
   return (
     <div className="container">
+      <ToastContainer />
       <div
         className="row"
         style={{ paddingTop: "40px", paddingBottom: "100px" }}
       >
         <div className="col-4">
-          <form action="/action_page.php" className="profile-form">
+          <form onSubmit={submitFormUpdate} className="profile-form">
             <h3
               style={{
                 textAlign: "center",
@@ -38,10 +54,12 @@ function Profile(props) {
             >
               User Information
             </h3>
+
             <div className="form-group">
               <label htmlFor="email">Name</label>
               <input
                 value={name}
+                onChange={(e) => setName(e.target.value)}
                 type="name"
                 className="form-control profile-input"
                 placeholder="Enter name"
@@ -52,6 +70,7 @@ function Profile(props) {
               <label htmlFor="email">Email address:</label>
               <input
                 value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 className="form-control profile-input"
                 placeholder="Enter email"
@@ -62,6 +81,7 @@ function Profile(props) {
               <label htmlFor="pwd">Password:</label>
               <input
                 value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 className="form-control profile-input"
                 placeholder="Enter password"
@@ -75,14 +95,15 @@ function Profile(props) {
             >
               Update
             </button>
-            <button className="btn btn-warning btn-block profile-button">
+            <button
+              className="btn btn-warning btn-block profile-button"
+              onClick={handleLogout}
+            >
               Logout
             </button>
           </form>
         </div>
-        <div className="col-8" style={{ backgroundColor: "yellow" }}>
-          sdsds
-        </div>
+        <div className="col-8">sdsds</div>
       </div>
     </div>
   );
