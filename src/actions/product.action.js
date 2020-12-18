@@ -1,10 +1,17 @@
 import * as productConstant from "../constants/product.constant";
 import axios from "axios";
 
-const createProduct = (product) => async (dispatch) => {
+const createProduct = (product) => async (dispatch, getState) => {
   try {
+    const {
+      userSignin: { userInfo },
+    } = getState();
     dispatch({ type: productConstant.PRODUCT_SAVE_REQUEST, payload: product });
-    const { data } = await axios.post("/api/products", product);
+    const { data } = await axios.post("/api/products", product, {
+      headers: {
+        Authorization: "Bearer " + userInfo.token,
+      },
+    });
     dispatch({ type: productConstant.PRODUCT_SAVE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -13,10 +20,19 @@ const createProduct = (product) => async (dispatch) => {
     });
   }
 };
-const updateProduct = (product) => async (dispatch) => {
+const updateProduct = (product) => async (dispatch, getState) => {
   try {
+    const {
+      userSignin: { userInfo },
+    } = getState();
     dispatch({ type: productConstant.PRODUCT_SAVE_REQUEST, payload: product });
-    const { data } = axios.put("/api/products/" + product._id, product);
+    const { data } = axios.put("/api/products/" + product._id, product, {
+      headers: {
+        Authorization: "Bearer " + userInfo.token,
+      },
+    });
+    dispatch({ type: productConstant.PRODUCT_SAVE_SUCCESS, payload: data });
+
     dispatch({ type: productConstant.PRODUCT_SAVE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -75,9 +91,9 @@ const deleteProduct = (productId) => async (dispatch, getState) => {
       payload: productId,
     });
     const { data } = await axios.delete("/api/products/" + productId, {
-      // headers: {
-      //   Authorization: "Bearer " + userInfo.token,
-      // },
+      headers: {
+        Authorization: "Bearer " + userInfo.token,
+      },
     });
     dispatch({
       type: productConstant.PRODUCT_DELETE_SUCCESS,

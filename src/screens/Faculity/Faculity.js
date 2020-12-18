@@ -1,6 +1,5 @@
 import React from "react";
 import "./Faculity.css";
-import "../Header.css";
 function Faculity(props) {
   return (
     <div className="container-fluid facu__fluid">

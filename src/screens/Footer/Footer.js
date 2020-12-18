@@ -2,10 +2,10 @@ import React from "react";
 import "./Footer.css";
 function Footer(props) {
   return (
-    <div className="container-fluid footer">
+    <div className="container-fluid footer" id='contact'>
       <div className="container">
         <div className="row">
-          <div className="col-3">
+          <div className="col-12 col-sm-3">
             <h3 className="footer__header">extras</h3>
             <ul className="footer__list">
               <li className="footer__item">Brands</li>
@@ -15,7 +15,7 @@ function Footer(props) {
               <li className="footer__item">Site Map</li>
             </ul>
           </div>
-          <div className="col-3">
+          <div className="col-12 col-sm-3">
             <h3 className="footer__header">information</h3>
             <ul className="footer__list">
               <li className="footer__item">About Us</li>
@@ -25,7 +25,7 @@ function Footer(props) {
               <li className="footer__item">Site Map</li>
             </ul>
           </div>
-          <div className="col-3">
+          <div className="col-12 col-sm-3">
             <h3 className="footer__header">my account</h3>
             <ul className="footer__list">
               <li className="footer__item">My Account</li>
@@ -35,15 +35,21 @@ function Footer(props) {
               <li className="footer__item">Returns</li>
             </ul>
           </div>
-          <div className="col-3">
+          <div className="col-12 col-sm-3">
             <h3 className="footer__header">contact us</h3>
             <ul className="footer__list">
               <li className="footer__item">
-                <i className="fa fa-map-marker footer__i" aria-hidden="true"></i>
+                <i
+                  className="fa fa-map-marker footer__i"
+                  aria-hidden="true"
+                ></i>
                 <span>Da Nang University, 54 Nguyen Luong Bang Street</span>
               </li>
               <li className="footer__item">
-                <i className="fa fa-envelope-o footer__i" aria-hidden="true"></i>
+                <i
+                  className="fa fa-envelope-o footer__i"
+                  aria-hidden="true"
+                ></i>
                 <span>dn@gmail.com</span>
               </li>
               <li className="footer__item ">

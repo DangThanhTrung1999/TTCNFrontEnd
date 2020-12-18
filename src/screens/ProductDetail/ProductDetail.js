@@ -1,19 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import "./ProductDetail.css";
-import { detailsProduct } from "../../actions/product.action";
+import {
+  detailsProduct,
+  saveProductReview,
+} from "../../actions/product.action";
 import Rating from "../../common/Rating/Rating";
 
 function ProductDetail(props) {
   const productDetail = useSelector((state) => state.productDetails);
   const dispatch = useDispatch();
+
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+
+  const [qty, setQty] = useState(1);
+  const [rating, setRating] = useState(1);
+  const [comment, setComment] = useState("");
   const { product, loading, error } = productDetail;
-  let id = props.location.search.split("=")[1];
+
   let reviews = product ? product.reviews : [];
-  console.log("id", id);
+  let id = props.location.search.split("=")[1];
   useEffect(() => {
     dispatch(detailsProduct(id));
   }, [id]);
+
+  const submitReview = (e) => {
+    e.preventDefault();
+    dispatch(
+      saveProductReview(id, {
+        name: userInfo.fullName,
+        rating: rating,
+        comment: comment,
+      })
+    );
+    dispatch(detailsProduct(id));
+      setRating(1);
+      setComment("");
+  };
   return (
     <div className="container">
       <div className="row">
@@ -68,7 +93,61 @@ function ProductDetail(props) {
           </table>
         </div>
       </div>
-
+      <div>
+        <h2>Write review</h2>
+        {userInfo ? (
+          <form onSubmit={submitReview}>
+            <table className="form-container" style={{ marginBottom: "20px" }}>
+              <tr>
+                <td>
+                  <label htmlFor="rating">Rating</label>
+                </td>
+                <td style={{ paddingLeft: "10px" }}>
+                  <select
+                    name="rating"
+                    id="rating"
+                    value={rating}
+                    onChange={(e) => {setRating(e.target.value)}}
+                  >
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Star</option>
+                    <option value="3">3 Star</option>
+                    <option value="4">4 Star</option>
+                    <option value="5">5 Star</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label htmlFor="comment">Comment</label>
+                </td>
+                <td style={{ paddingLeft: "10px" }}>
+                  <textarea
+                    name="comment"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  ></textarea>
+                </td>
+              </tr>
+              <tr>
+                <button
+                  type="submit"
+                  className="btn btn-secondary"
+                  style={{
+                    fontSize: "16px",
+                  }}
+                >
+                  Submit
+                </button>
+              </tr>
+            </table>
+          </form>
+        ) : (
+          <div>
+            Please <Link to="/login">Sign-in</Link> to review.
+          </div>
+        )}
+      </div>
       <h3
         style={{
           fontSize: "20px",

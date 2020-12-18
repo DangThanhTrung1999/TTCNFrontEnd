@@ -10,9 +10,9 @@ button {
     --input-padding-y: 1rem;
 }
 
-.login {
+.register {
     background: #007bff;
-    background: linear-gradient(to right, #a6bfe0, #33AEFF);
+    background: linear-gradient(to right, #a6d8e0, #e4ff3366);
     height: 90vh;
 }
 

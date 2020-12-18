@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signin } from "../../actions/user.action";
-import "./Login.css";
-function LoginScreen(props) {
+import { register } from "../../actions/user.action";
+import "./Register.css";
+function RegisterScreen(props) {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const userSignin = useSelector((state) => state.userSignin);
-  const { loading, userInfo, error } = userSignin;
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, userInfo, error } = userRegister ? userRegister : {};
   const redirect = props.location.search
     ? props.location.search.split("=")[1]
     : "/";
@@ -19,22 +19,35 @@ function LoginScreen(props) {
   }, [userInfo]);
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    dispatch(signin(email, password));
+    dispatch(register(name, email, password));
   };
   return (
-    <div className="container-fluid login">
+    <div className="container-fluid register">
       <div className="row login-vertical">
         <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
           <div className="card card-signin my-5" style={{ width: "80%" }}>
             <div className="card-body">
-              <h3 className="card-title text-center">Sign In</h3>
+              <h3 className="card-title text-center">Sign up</h3>
               {loading && <div className="text-center">Loading...</div>}
               {error && (
                 <div className="text-center" style={{ color: "red" }}>
-                  Your email or password wrong !
+                  Have error when register
                 </div>
               )}
               <form className="form-signin" onSubmit={handleSubmitForm}>
+                <div className="form-label-group">
+                  <input
+                    type="text"
+                    id="inputName"
+                    name="name"
+                    className="form-control input"
+                    placeholder="Name"
+                    required
+                    autofocus
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  <label htmlFor="inputName">Name</label>
+                </div>
                 <div className="form-label-group">
                   <input
                     type="email"
@@ -55,39 +68,27 @@ function LoginScreen(props) {
                     name="password"
                     className="form-control input"
                     required
-                    placeholder="Password "
+                    placeholder="Password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <label htmlFor="inputPassword">Password</label>
                 </div>
-                <div className="custom-control custom-checkbox mb-3">
-                  <input
-                    type="checkbox"
-                    className="custom-control-input"
-                    id="customCheck1"
-                  />
-                  <label
-                    className="custom-control-label"
-                    htmlFor="customCheck1"
-                  >
-                    Remember password
-                  </label>
-                </div>
+
                 <button
                   className="btn btn-lg btn-primary btn-block text-uppercase"
                   type="submit"
                 >
-                  Sign in
+                  Register
                 </button>
                 <button
                   onClick={() => {
                     setTimeout(() => {
-                      props.history.push("/register");
+                      props.history.push("/login");
                     }, 1000);
                   }}
                   className="btn btn-lg btn-secondary btn-block text-uppercase"
                 >
-                  Sign up
+                  I had account. Sign in now !
                 </button>
               </form>
             </div>
@@ -98,4 +99,4 @@ function LoginScreen(props) {
   );
 }
 
-export default LoginScreen;
+export default RegisterScreen;

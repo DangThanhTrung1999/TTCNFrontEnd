@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import "./ProductCreateScreen.css";
+import CheckButton from "react-validation/build/button";
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
 
 import { createProduct } from "../../actions/product.action";
 
@@ -22,6 +25,17 @@ function ProductCreateSreen(props) {
     success: successSave,
     error: errorSave,
   } = productSave;
+  const form = useRef();
+  let checkBtn = useRef();
+  const required = (value) => {
+    if (!value) {
+      return (
+        <div className="alert alert-danger" role="alert">
+          This field is required!
+        </div>
+      );
+    }
+  };
 
   const uploadFile = (e) => {
     const file = e.target.files[0];
@@ -44,16 +58,19 @@ function ProductCreateSreen(props) {
       });
   };
   const handleSubmit = (e) => {
+    form.current.validateAll();
     e.preventDefault();
-    dispatch(
-      createProduct({ name, price, image, brand, category, description })
-    );
-    setTimeout(() => {
-      props.history.push("/list");
-    }, 1000);
+    if (checkBtn.context._errors.length === 0) {
+      dispatch(
+        createProduct({ name, price, image, brand, category, description })
+      );
+      setTimeout(() => {
+        props.history.push("/list");
+      }, 1000);
+    }
   };
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <Form className="form" onSubmit={handleSubmit} ref={form}>
       <h1>Create Product</h1>
       {loadingSave && <div>Loading...</div>}
       {errorSave && (
@@ -63,7 +80,8 @@ function ProductCreateSreen(props) {
       )}
       <div className="form-group">
         <label htmlFor="name">Name:</label>
-        <input
+        <Input
+          validations={[required]}
           type="text"
           className="form-control form-create"
           placeholder="Enter name product"
@@ -73,7 +91,8 @@ function ProductCreateSreen(props) {
       </div>
       <div className="form-group">
         <label htmlFor="price">Price:</label>
-        <input
+        <Input
+          validations={[required]}
           type="int"
           className="form-control form-create"
           placeholder="Enter price"
@@ -101,8 +120,9 @@ function ProductCreateSreen(props) {
       </div>
       <div className="form-group">
         <label htmlFor="brand">Brand:</label>
-        <input
-          type="int"
+        <Input
+          validations={[required]}
+          type="text"
           className="form-control form-create"
           placeholder="Enter brand"
           onChange={(e) => setBrand(e.target.value)}
@@ -111,8 +131,9 @@ function ProductCreateSreen(props) {
       </div>
       <div className="form-group">
         <label htmlFor="category">Category:</label>
-        <input
-          type="int"
+        <Input
+          validations={[required]}
+          type="text"
           className="form-control form-create"
           placeholder="Enter category"
           onChange={(e) => setCategory(e.target.value)}
@@ -121,8 +142,9 @@ function ProductCreateSreen(props) {
       </div>
       <div className="form-group">
         <label htmlFor="description">Description:</label>
-        <input
-          type="int"
+        <Input
+          validations={[required]}
+          type="text"
           className="form-control form-create"
           placeholder="Enter description"
           onChange={(e) => setDescription(e.target.value)}
@@ -144,7 +166,13 @@ function ProductCreateSreen(props) {
           Back
         </button>
       </div>
-    </form>
+      <CheckButton
+        style={{ display: "none" }}
+        ref={(c) => {
+          checkBtn = c;
+        }}
+      />
+    </Form>
   );
 }
 
