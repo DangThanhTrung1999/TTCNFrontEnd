@@ -11,8 +11,8 @@ button {
 }
 
 .login {
-    background: #007bff;
-    background: linear-gradient(to right, #a6bfe0, #33AEFF);
+    /* background: #007bff; */
+    background: linear-gradient(to right, #ebedf0, #edeff0);
     height: 90vh;
 }
 

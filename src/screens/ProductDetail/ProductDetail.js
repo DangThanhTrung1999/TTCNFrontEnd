@@ -15,7 +15,7 @@ function ProductDetail(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 
-  const [qty, setQty] = useState(1);
+  const [amount, setAmount] = useState(1);
   const [rating, setRating] = useState(1);
   const [comment, setComment] = useState("");
   const { product, loading, error } = productDetail;
@@ -36,8 +36,16 @@ function ProductDetail(props) {
       })
     );
     dispatch(detailsProduct(id));
-      setRating(1);
-      setComment("");
+    setRating(1);
+    setComment("");
+  };
+  const increment = () => {
+    setAmount(amount + 1);
+  };
+  const decrement = () => {
+    if (amount >= 2) {
+      setAmount(amount - 1);
+    }
   };
   return (
     <div className="container">
@@ -76,7 +84,9 @@ function ProductDetail(props) {
             </tr>
             <tr>
               <td className="detail-title">Price</td>
-              <td>{product ? product.price : ""}</td>
+              <td>
+                {product ? new Intl.NumberFormat().format(product.price) : ""}
+              </td>
             </tr>
             <tr>
               <td className="detail-title">Brand</td>
@@ -89,6 +99,37 @@ function ProductDetail(props) {
             <tr>
               <td className="detail-title">Description</td>
               <td>{product ? product.description : ""}</td>
+            </tr>
+            <tr style={{ paddingLeft: "10px", display: "block" }}>
+              <div className="quantity-input" style={{ marginBottom: "5px" }}>
+                <button
+                  className="quantity-input__modifier quantity-input__modifier--left"
+                  onClick={decrement}
+                >
+                  &mdash;
+                </button>
+                <input
+                  className="quantity-input__screen"
+                  type="text"
+                  value={amount}
+                  readonly
+                />
+                <button
+                  className="quantity-input__modifier quantity-input__modifier--right"
+                  onClick={increment}
+                >
+                  &#xff0b;
+                </button>
+              </div>
+              <button
+                className="btn btn-warning"
+                style={{ padding: "10px 20px", fontSize: "16px" }}
+                onClick={() => {
+                  props.history.push("/cart/" + id + "?amount=" + amount);
+                }}
+              >
+                Buy now
+              </button>
             </tr>
           </table>
         </div>
@@ -107,7 +148,9 @@ function ProductDetail(props) {
                     name="rating"
                     id="rating"
                     value={rating}
-                    onChange={(e) => {setRating(e.target.value)}}
+                    onChange={(e) => {
+                      setRating(e.target.value);
+                    }}
                   >
                     <option value="1">1 Star</option>
                     <option value="2">2 Star</option>
@@ -125,6 +168,7 @@ function ProductDetail(props) {
                   <textarea
                     name="comment"
                     value={comment}
+                    style={{ padding: "5px" }}
                     onChange={(e) => setComment(e.target.value)}
                   ></textarea>
                 </td>
@@ -132,7 +176,7 @@ function ProductDetail(props) {
               <tr>
                 <button
                   type="submit"
-                  className="btn btn-secondary"
+                  className="btn btn-primary"
                   style={{
                     fontSize: "16px",
                   }}

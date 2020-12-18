@@ -13,8 +13,10 @@ import {
   userRegisterReducer,
   userUpdateReducer,
 } from "./reducers/user.reducer";
+import { cartReducer } from "./reducers/cart.reducer";
 const userInfo = Cookie.getJSON("user") || null;
 const cartItems = Cookie.getJSON("cart") || [];
+
 const initialState = {
   cart: { cartItems, shipping: {}, payment: {} },
   userSignin: { userInfo },
@@ -22,6 +24,7 @@ const initialState = {
 const rootReducer = combineReducers({
   productSave,
   productList,
+  cart: cartReducer,
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
   productDetails: productDetailsReducer,

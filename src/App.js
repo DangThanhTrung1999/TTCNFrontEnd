@@ -12,6 +12,7 @@ import ProductCreateSreen from "./screens/ProductCreate/ProductCreateSreen";
 import RegisterScreen from "./screens/Register/RegisterScreen";
 import Faculity from "./screens/Faculity/Faculity";
 import Profile from "./screens/Profile/Profile";
+import Cart from "./screens/Cart/Cart";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Route path="/profile" component={Profile} />
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
-          <Route path="/cart" component={CartScreen} />
+          <Route path="/cart" component={Cart} />
           <Route path="/update" component={ProductUpdateScreen} />
           <Route path="/detail" component={ProductDetail} />
           <Route path="/create" component={ProductCreateSreen} />

@@ -47,7 +47,7 @@ function ListProductScreen(props) {
           {listProduct.products.map((item) => (
             <tr key={item._id}>
               <td>{item.name}</td>
-              <td>{item.price}</td>
+              <td>{new Intl.NumberFormat().format(item.price)}</td>
               <td>{item.category}</td>
               <td>{item.brand}</td>
               <td>

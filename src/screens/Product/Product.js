@@ -30,8 +30,19 @@ function Product(props) {
               <p>{item.name}</p>
               <Rating value={item.rating} />
             </Link>
-            <p>{item.price}</p>
-            <button className="btn btn__product">Add to cart</button>
+            <p>{new Intl.NumberFormat().format(item.price)}</p>
+
+            <Link
+              to={`/detail?id=${item._id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <button
+                className="btn btn__product"
+              
+              >
+                Add to cart
+              </button>
+            </Link>
           </div>
         ))}
       </div>
