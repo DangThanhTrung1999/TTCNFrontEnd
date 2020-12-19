@@ -18,18 +18,16 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <div className="container-fluid" style={{ paddingTop: "70px" }}>
-        <main className="main">
-          <Route path="/" exact component={HomeScreen} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/login" component={LoginScreen} />
-          <Route path="/register" component={RegisterScreen} />
-          <Route path="/cart" component={Cart} />
-          <Route path="/update" component={ProductUpdateScreen} />
-          <Route path="/detail" component={ProductDetail} />
-          <Route path="/create" component={ProductCreateSreen} />
-          <Route path="/list" component={ListProductScreen} />
-        </main>
+      <div style={{ paddingTop: "70px" }} >
+        <Route path="/" exact component={HomeScreen} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/login" component={LoginScreen} />
+        <Route path="/register" component={RegisterScreen} />
+        <Route path="/cart" component={Cart} />
+        <Route path="/update" component={ProductUpdateScreen} />
+        <Route path="/detail" component={ProductDetail} />
+        <Route path="/create" component={ProductCreateSreen} />
+        <Route path="/list" component={ListProductScreen} />
       </div>
 
       <Faculity />

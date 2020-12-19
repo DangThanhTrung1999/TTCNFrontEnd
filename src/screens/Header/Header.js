@@ -57,7 +57,15 @@ function Header(props) {
                     </Link>
                   </li>
                 )}
-
+                <li className="nav__item">
+                  <Link
+                    to={"/"}
+                    className="nav__link scroll-link"
+                    style={{ width: "70px" }}
+                  >
+                    My Cart
+                  </Link>
+                </li>
                 <li className="nav__item">
                   <a href="#contact" className="nav__link scroll-link">
                     Contact
@@ -113,11 +121,9 @@ function Header(props) {
                 <i className="fa fa-search" aria-hidden="true"></i>
               </a>
 
-              <a href="#" className="icon__item">
+              <Link to={"/cart"} className="icon__item">
                 <i className="fa fa-shopping-cart" aria-hidden="true"></i>
-
-                <span id="cart__total">0</span>
-              </a>
+              </Link>
             </div>
           </nav>
         </div>

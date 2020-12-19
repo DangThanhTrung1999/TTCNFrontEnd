@@ -25,21 +25,29 @@ function Cart(props) {
     }
   }, []);
   return (
-    <>
+    <div style={{ backgroundColor: "#f4f4f4" }}>
       {cartItems && (
-        <div className="container">
+        <div className="container" style={{ paddingTop: "40px" }}>
           <div className="row">
             <div className="col-8">
-              <ul className="cart-list-container">
-                <li>
-                  <h3>Shopping Cart</h3>
-                </li>
+              <div className="cart-list-container">
                 {cartItems.length === 0 ? (
                   <div>Cart is empty</div>
                 ) : (
                   cartItems.map((item) => (
-                    <li style={{ display: "flex" }}>
-                      <div className="cart-image" style={{ width: "120px" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        backgroundColor: "white",
+                        marginBottom: "15px",
+                        padding: "15px 0",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      <div
+                        className="cart-image"
+                        style={{ width: "120px", paddingLeft: "20px" }}
+                      >
                         <img
                           src={`/api/uploads/${item.image}`}
                           alt="product"
@@ -55,54 +63,86 @@ function Cart(props) {
                           {item.name}
                         </Link>
                       </div>
-                      <div className="cart-price" style={{ width: "10%" }}>
-                        {item.price}
+                      <div className="cart-price" style={{ width: "15%" }}>
+                        {new Intl.NumberFormat().format(item.price)}
                       </div>
-                      <div>
-                        Qty:
-                        <select
-                          value={item.qty}
-                          onChange={(e) =>
-                            dispatch(addToCart(item.product, e.target.value))
+                      <div
+                        className="quantity-input"
+                        style={{ marginBottom: "5px" }}
+                      >
+                        <button
+                          className="quantity-input__modifier quantity-input__modifier--left"
+                          onClick={() =>
+                            dispatch(
+                              addToCart(
+                                item.product,
+                                item.qty - 1 > 0 ? item.qty - 1 : 1
+                              )
+                            )
                           }
                         >
-                          {[...Array(item.countInStock).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
-                        </select>
+                          &mdash;
+                        </button>
+                        <input
+                          className="quantity-input__screen"
+                          type="text"
+                          value={item.qty}
+                          readonly
+                        />
+                        <button
+                          className="quantity-input__modifier quantity-input__modifier--right"
+                          onClick={() =>
+                            dispatch(addToCart(item.product, item.qty + 1))
+                          }
+                        >
+                          &#xff0b;
+                        </button>
+                      </div>
+                      <div style={{ paddingLeft: "20px" }}>
                         <button
                           type="button"
-                          className="button"
+                          style={{ padding: "5px", fontSize: "16px" }}
+                          className="btn btn-danger"
                           onClick={() => removeFromCartHandler(item.product)}
                         >
                           Delete
                         </button>
                       </div>
-                    </li>
+                    </div>
                   ))
                 )}
-              </ul>
+              </div>
             </div>
             <div className="col-4">
-              <h3>
-                Subtotal ( {cartItems.reduce((a, c) => a + c.qty, 0)} items) : ${" "}
-                {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
-              </h3>
-              <button
-                onClick={checkoutHandler}
-                className="button primary full-width"
-                px
-                disabled={cartItems.length === 0}
+              <div
+                style={{
+                  backgroundColor: "white",
+                  marginBottom: "15px",
+                  padding: "15px 15px",
+                  borderRadius: "5px",
+                }}
               >
-                Proceed to Checkout
-              </button>
+                <h3>
+                  Total ( {cartItems.reduce((a, c) => a + c.qty, 0)} items) :{" "}
+                  {"  "}
+                  {new Intl.NumberFormat().format(
+                    cartItems.reduce((a, c) => a + c.price * c.qty, 0)
+                  )}
+                </h3>
+                <button
+                  onClick={checkoutHandler}
+                  className="btn btn-block btn-success"
+                  style={{ padding: "5px", fontSize: "16px" }}
+                  disabled={cartItems.length === 0}
+                >
+                  Confirm cart
+                </button>
+              </div>
             </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
