@@ -59,13 +59,24 @@ function Header(props) {
                 )}
                 <li className="nav__item">
                   <Link
-                    to={"/"}
+                    to={"/cart"}
                     className="nav__link scroll-link"
                     style={{ width: "70px" }}
                   >
                     My Cart
                   </Link>
                 </li>
+                {userInfo && userInfo.isAdmin && (
+                  <li className="nav__item">
+                    <Link
+                      to={"/list-order"}
+                      className="nav__link scroll-link"
+                      style={{ width: "140px" }}
+                    >
+                      Manage Order
+                    </Link>
+                  </li>
+                )}
                 <li className="nav__item">
                   <a href="#contact" className="nav__link scroll-link">
                     Contact

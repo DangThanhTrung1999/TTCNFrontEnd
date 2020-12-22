@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../actions/cart.action";
 import { Link } from "react-router-dom";
+
 function Cart(props) {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart || [];
@@ -15,7 +16,7 @@ function Cart(props) {
   };
 
   const checkoutHandler = () => {
-    props.history.push("/signin?redirect=shipping");
+    props.history.push("/login?redirect=buy");
   };
   console.log({ productId, amount });
 
@@ -32,7 +33,7 @@ function Cart(props) {
             <div className="col-8">
               <div className="cart-list-container">
                 {cartItems.length === 0 ? (
-                  <div>Cart is empty</div>
+                  <h2>Cart is empty</h2>
                 ) : (
                   cartItems.map((item) => (
                     <div
@@ -55,7 +56,7 @@ function Cart(props) {
                         />
                       </div>
 
-                      <div style={{ width: "30%" }}>
+                      <div style={{ width: "30%",paddingLeft:'5px' }}>
                         <Link
                           to={"/detail?id=" + item.product}
                           style={{ textDecoration: "none" }}

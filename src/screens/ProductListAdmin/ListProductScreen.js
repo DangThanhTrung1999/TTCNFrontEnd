@@ -30,7 +30,7 @@ function ListProductScreen(props) {
   }, [successDelete]);
 
   return (
-    <div className="list-product">
+    <div className="list-product container">
       <h1 style={{ textAlign: "center", margin: "20px" }}>LIST PRODUCT</h1>
       <table className="table table-bordered">
         <thead>

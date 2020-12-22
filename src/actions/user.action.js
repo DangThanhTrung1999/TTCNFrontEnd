@@ -48,6 +48,7 @@ const register = (name, email, password) => async (dispatch) => {
 
 const logout = () => (dispatch) => {
   Cookie.remove("user");
+  Cookie.remove("cart");
   dispatch({ type: USER_LOGOUT })
 }
 export { signin, register, logout, update };
