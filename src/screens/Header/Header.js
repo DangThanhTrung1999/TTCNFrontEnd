@@ -5,7 +5,14 @@ import { useSelector } from "react-redux";
 function Header(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-  const [find, setFind] = useState("abc");
+  const [find, setFind] = useState("");
+  if(find===""){
+    props.getFind("")
+  }
+  const handleFind = (e) => {
+    e.preventDefault();
+    props.getFind(find);
+  };
   return (
     <div
       style={{
@@ -83,7 +90,7 @@ function Header(props) {
                   </a>
                 </li>
                 {userInfo && !userInfo.isAdmin && (
-                  <form style={{ width: "700px" }}>
+                  <form style={{ width: "700px" }} onSubmit={handleFind}>
                     <div className="form-row" style={{ width: "700px" }}>
                       <div className="col">
                         <input
@@ -92,6 +99,7 @@ function Header(props) {
                           placeholder="Find now"
                           style={{ height: "32px", fontSize: "16px" }}
                           defaultValue={find}
+                          onChange={(e) => setFind(e.target.value)}
                         />
                       </div>
                       <div className="col">

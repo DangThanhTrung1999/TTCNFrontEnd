@@ -8,8 +8,9 @@ import "./Product.css";
 function Product(props) {
   const listProduct = useSelector((state) => state.productList);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(productList());
+    dispatch(productList("", props.find || "", ""));
   }, []);
   return (
     <div className="container" style={{ paddingTop: "2rem" }}>
@@ -32,7 +33,7 @@ function Product(props) {
             {item.rating > 0 ? (
               <Rating value={item.rating} />
             ) : (
-              <p style={{marginBottom:'0.4rem'}}>No have review</p>
+              <p style={{ marginBottom: "0.4rem" }}>No have review</p>
             )}
 
             <p>{new Intl.NumberFormat().format(item.price)}</p>

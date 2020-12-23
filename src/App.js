@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./screens/Header/Header";
 import HomeScreen from "./screens/HomeScreen";
@@ -17,12 +17,17 @@ import Payment from "./screens/Payment/Payment";
 import Order from "./screens/Order/Order";
 import ListOrder from "./screens/ListOrder/ListOrder";
 import OrderDetail from "./screens/OrderDetail/OrderDetail";
+
 function App() {
+  const [find, setFind] = useState("");
+  const handleFind = (data) => {
+    setFind(data);
+  };
   return (
     <BrowserRouter>
-      <Header />
+      <Header getFind={handleFind} />
       <div style={{ paddingTop: "70px" }}>
-        <Route path="/" exact component={HomeScreen} />
+        <Route path="/" exact component={() => <HomeScreen find={find} />} />
         <Route path="/profile" component={Profile} />
         <Route path="/login" component={LoginScreen} />
         <Route path="/register" component={RegisterScreen} />
