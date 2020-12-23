@@ -16,6 +16,7 @@ import Buy from "./screens/Buy/Buy";
 import Payment from "./screens/Payment/Payment";
 import Order from "./screens/Order/Order";
 import ListOrder from "./screens/ListOrder/ListOrder";
+import OrderDetail from "./screens/OrderDetail/OrderDetail";
 function App() {
   return (
     <BrowserRouter>
@@ -34,6 +35,7 @@ function App() {
         <Route path="/payment" component={Payment} />
         <Route path="/order" component={Order} />
         <Route path="/list-order" component={ListOrder} />
+        <Route path="/order-detail/:id" component={OrderDetail} />
       </div>
 
       <Faculity />

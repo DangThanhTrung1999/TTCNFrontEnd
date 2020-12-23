@@ -11,7 +11,7 @@ function ListOrder(props) {
     orderDelete || {};
   useEffect(() => {
     dispatch(listOrders());
-  }, []);
+  }, [successDelete]);
   const dispatch = useDispatch();
   const deleteHandler = (order) => {
     dispatch(deleteOrder(order._id));
@@ -35,13 +35,11 @@ function ListOrder(props) {
           <thead>
             <tr>
               <th>ID</th>
-              <th>DATE</th>
+              <th>DATE ORDER</th>
               <th>TOTAL</th>
               <th>USER</th>
               <th>PAID</th>
-              <th>PAID AT</th>
               <th>DELIVERED</th>
-              <th>DELIVERED AT</th>
               <th>ACTIONS</th>
             </tr>
           </thead>
@@ -54,9 +52,7 @@ function ListOrder(props) {
                   <td>{new Intl.NumberFormat().format(order.itemsPrice)}</td>
                   <td>{order.user.fullName}</td>
                   <td>{order.isPaid.toString()}</td>
-                  <td>{order.paidAt}</td>
                   <td>{order.isDelivered.toString()}</td>
-                  <td>{order.deliveredAt}</td>
                   <td>
                     <button
                       className="btn btn-warning"
@@ -66,7 +62,7 @@ function ListOrder(props) {
                       }}
                     >
                       <Link
-                        to={"/order/" + order._id}
+                        to={"/order-detail/" + order._id}
                         style={{ textDecoration: "none", color: "black" }}
                       >
                         Details

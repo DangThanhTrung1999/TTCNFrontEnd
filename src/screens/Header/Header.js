@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 function Header(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-  console.log("userInfo ", userInfo);
+  const [find, setFind] = useState("abc");
   return (
     <div
       style={{
@@ -82,6 +82,30 @@ function Header(props) {
                     Contact
                   </a>
                 </li>
+                {userInfo && !userInfo.isAdmin && (
+                  <form style={{ width: "700px" }}>
+                    <div className="form-row" style={{ width: "700px" }}>
+                      <div className="col">
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Find now"
+                          style={{ height: "32px", fontSize: "16px" }}
+                          defaultValue={find}
+                        />
+                      </div>
+                      <div className="col">
+                        <button
+                          type="submit"
+                          className="btn btn-primary"
+                          style={{ fontSize: "16px" }}
+                        >
+                          <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                )}
               </ul>
             </div>
 
@@ -127,10 +151,6 @@ function Header(props) {
                   </Link>
                 </div>
               )}
-
-              <a href="#" className="icon__item">
-                <i className="fa fa-search" aria-hidden="true"></i>
-              </a>
 
               <Link to={"/cart"} className="icon__item">
                 <i className="fa fa-shopping-cart" aria-hidden="true"></i>

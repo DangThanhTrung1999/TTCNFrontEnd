@@ -28,20 +28,20 @@ function Product(props) {
               style={{ textDecoration: "none" }}
             >
               <p>{item.name}</p>
-              <Rating value={item.rating} />
             </Link>
+            {item.rating > 0 ? (
+              <Rating value={item.rating} />
+            ) : (
+              <p style={{marginBottom:'0.4rem'}}>No have review</p>
+            )}
+
             <p>{new Intl.NumberFormat().format(item.price)}</p>
 
             <Link
               to={`/detail?id=${item._id}`}
               style={{ textDecoration: "none" }}
             >
-              <button
-                className="btn btn__product"
-              
-              >
-                Add to cart
-              </button>
+              <button className="btn btn__product">Add to cart</button>
             </Link>
           </div>
         ))}

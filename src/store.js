@@ -18,6 +18,7 @@ import {
   orderListReducer,
   orderDeleteReducer,
   myOrderListReducer,
+  orderDetailsReducer,
 } from "./reducers/order.reducer";
 const userInfo = Cookie.getJSON("user") || null;
 const cartItems = Cookie.getJSON("cart") || [];
@@ -37,6 +38,8 @@ const rootReducer = combineReducers({
   useUpdate: userUpdateReducer,
   myOrderList: myOrderListReducer,
   orderList: orderListReducer,
+  orderDetails: orderDetailsReducer,
+  orderDelete: orderDeleteReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

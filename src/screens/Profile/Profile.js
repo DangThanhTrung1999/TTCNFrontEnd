@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Profile.css";
 import { logout, update } from "../../actions/user.action";
 import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import { listMyOrders } from "../../actions/order.action";
 import "react-toastify/dist/ReactToastify.css";
 
 function Profile(props) {
@@ -14,6 +16,9 @@ function Profile(props) {
   const { userInfo } = userSignin;
   const userUpdate = useSelector((state) => state.userUpdate);
   const { loading, success, error } = userUpdate || {};
+  const myOrderList = useSelector((state) => state.myOrderList);
+  const { loading: loadingOrders, orders, error: errorOrders } =
+    myOrderList || {};
   useEffect(() => {
     if (userInfo) {
       console.log(userInfo.name);
@@ -21,6 +26,7 @@ function Profile(props) {
       setName(userInfo.fullName);
       setPassword(userInfo.password);
     }
+    dispatch(listMyOrders());
   }, [userInfo]);
   const handleLogout = () => {
     dispatch(logout());
@@ -103,7 +109,46 @@ function Profile(props) {
             </button>
           </form>
         </div>
-        <div className="col-8">sdsds</div>
+        <div className="col-8">
+          <h3
+            style={{
+              textAlign: "center",
+              fontWeight: "bold",
+              fontSize: "26px",
+              paddingBottom: "20px",
+            }}
+          >
+            My order
+          </h3>
+          {loadingOrders ? (
+            <div>Loading...</div>
+          ) : errorOrders ? (
+            <div>{errorOrders} </div>
+          ) : (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>DATE</th>
+                  <th>TOTAL</th>
+                  <th>PAID</th>
+                  <th>DETAIL</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders.map((order) => (
+                  <tr key={order._id}>
+                    <td>{order.createdAt}</td>
+                    <td>{new Intl.NumberFormat().format(order.itemsPrice)}</td>
+                    <td>{!order.isPaid ? "No" : "Yes"}</td>
+                    <td>
+                      <Link to={"/order-detail/" + order._id}>Detail</Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
     </div>
   );
