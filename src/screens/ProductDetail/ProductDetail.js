@@ -8,7 +8,7 @@ import {
 } from "../../actions/product.action";
 import Rating from "../../common/Rating/Rating";
 
-function ProductDetail(props) {
+function +ProductDetail(props) {
   const productDetail = useSelector((state) => state.productDetails);
   const dispatch = useDispatch();
 
