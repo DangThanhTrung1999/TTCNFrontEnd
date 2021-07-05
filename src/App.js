@@ -1,78 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
+import Header from "./screens/Header/Header";
 import HomeScreen from "./screens/HomeScreen";
+import ListProductScreen from "./screens/ProductListAdmin/ListProductScreen";
+import Footer from "./screens/Footer/Footer";
+import LoginScreen from "./screens/Login/LoginScreen";
+import ProductDetail from "./screens/ProductDetail/ProductDetail";
+import ProductUpdateScreen from "./screens/ProductUpdate/ProductUpdateScreen";
+import ProductCreateSreen from "./screens/ProductCreate/ProductCreateSreen";
+import RegisterScreen from "./screens/Register/RegisterScreen";
+import Faculity from "./screens/Faculity/Faculity";
+import Profile from "./screens/Profile/Profile";
+import Cart from "./screens/Cart/Cart";
+import Buy from "./screens/Buy/Buy";
+import Payment from "./screens/Payment/Payment";
+import Order from "./screens/Order/Order";
+import ListOrder from "./screens/ListOrder/ListOrder";
+import OrderDetail from "./screens/OrderDetail/OrderDetail";
 
 function App() {
+  const [find, setFind] = useState("");
+  const handleFind = (data) => {
+    setFind(data);
+  };
   return (
     <BrowserRouter>
-      <div className="container">
-        <nav class="navbar navbar-expand-sm navbar-light bg-light">
-          <a class="navbar-brand" href="#">
-            Navbar
-          </a>
-          <button
-            class="navbar-toggler d-lg-none"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapsibleNavId"
-            aria-controls="collapsibleNavId"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="collapsibleNavId">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">
-                  Home <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Link
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="dropdownId"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownId">
-                  <a class="dropdown-item" href="#">
-                    Action 1
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    Action 2
-                  </a>
-                </div>
-              </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-              <input
-                class="form-control mr-sm-2"
-                type="text"
-                placeholder="Search"
-              />
-              <button
-                class="btn btn-outline-success my-2 my-sm-0"
-                type="submit"
-              >
-                Search
-              </button>
-            </form>
-          </div>
-        </nav>
-        <main className="main">
-          <Route path="/home" component={HomeScreen} />
-        </main>
+      <Header getFind={handleFind} />
+      <div style={{ paddingTop: "70px" }}>
+        <Route path="/" exact component={() => <HomeScreen find={find} />} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/login" component={LoginScreen} />
+        <Route path="/register" component={RegisterScreen} />
+        <Route path="/cart" component={Cart} />
+        <Route path="/update" component={ProductUpdateScreen} />
+        <Route path="/detail" component={ProductDetail} />
+        <Route path="/create" component={ProductCreateSreen} />
+        <Route path="/list" component={ListProductScreen} />
+        <Route path="/buy" component={Buy} />
+        <Route path="/payment" component={Payment} />
+        <Route path="/order" component={Order} />
+        <Route path="/list-order" component={ListOrder} />
+        <Route path="/order-detail/:id" component={OrderDetail} />
       </div>
+
+      <Faculity />
+      <Footer />
     </BrowserRouter>
   );
 }

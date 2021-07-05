@@ -1,0 +1,23 @@
+.profile-form {
+
+    padding: 2rem;
+    border: 0.1rem #c0c0c0 solid;
+    border-radius: 0.5rem;
+    list-style-type: none;
+}
+
+.profile-input {
+    padding: 15px 10px;
+    /* margin: 8px 0; */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: black !important;
+}
+.profile-button{
+    font-size: 16px;
+    width: 100%;
+    padding: 5px 0;
+    font-weight: bolder
+}
